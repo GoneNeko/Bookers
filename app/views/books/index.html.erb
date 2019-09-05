@@ -1,0 +1,120 @@
+<header>
+  <div class="header-content clearfix">
+    <div class="header-text">
+      <span>Bookers</span>
+    </div>
+    <% if user_signed_in? %>
+      <div class="header-icon">
+        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        <%= link_to 'Home', user_path(@user.id) %>
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        <%= link_to 'Users', users_path %>
+        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+        <%= link_to 'Books', books_path %>
+        <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+        <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+      </div>
+    <% else %>
+      <div class="header-icon">
+        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        <%= link_to 'Home', root_path %>
+        <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+        <%= link_to 'About', '/home/about' %>
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        <%= link_to 'Sign Up', new_user_registration_path %>
+        <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+        <%= link_to 'Login', new_user_session_path %>
+      </div>
+    <% end %>
+</header>
+
+<div class="container">
+  <% if flash[:notice] %>
+    <div class="flash">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="user-info">
+        <h2>User info</h2>
+        <div class = "image">
+          <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, fallback:"no_image.jpg" %>
+        </div>
+        <div class = "name">
+          <label>name</label>
+          <label><%= @user.name %></label>
+        </div>
+        <div class = "introduction">
+          <label>introduction</label>
+          <label><%= @user.introduction%></label>
+        </div>
+        <div class = "edit">
+          <% if @user == current_user %>
+            <%= link_to edit_user_path(@user), class: 'btn btn-default w-178px' do %>
+              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            <% end %>
+          <% else %>
+            <%= link_to user_path(@a.id), class: 'btn btn-default w-178px' do %>
+              <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+
+
+      <div class="new-book">
+        <h2>New book</h2>
+        <%= form_for(@book) do |f|%>
+          <% if @book.errors.any? %>
+            <h2><%= @book.errors.count %>件のエラーが発生しました。</h2>
+            <ul>
+              <% @book.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+              <% end %>
+            </ul>
+          <% end %>
+          <div class = "new-book-title">
+            <label>Title</label>
+          </div>
+          <div class = "new-book-title-form">
+            <label><%= f.text_field :title %></label>
+          </div>
+          <div class = "new-book-opinion">
+            <label>Opnion</label>
+          </div>
+          <div class = "new-book-opinion-form">
+            <label><%= f.text_area :body %></label>
+          </div>
+          <%= f.submit "Create Book", class:"btn btn-primary w-178px" %>
+        <% end %>
+      </div>
+    </div>
+
+
+
+    <div class="col-lg-8">
+      <div class="books">
+        <h2>Books</h2>
+        <table class="table table-striped" >
+
+          <tbody>
+          <% @books.each do |book| %>
+          <tr>
+            <td><%= attachment_image_tag @user, :profile_image, :fill, 40, 40, fallback:"no_image.jpg" %></td>
+            <td><%= link_to book.title, book_path(book) %></td>
+            <td><%= book.body %></td>
+          </tr>
+          <% end %>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>CopyRight Infratop.inc</p>
+</footer>
