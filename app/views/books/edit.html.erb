@@ -1,0 +1,54 @@
+<header>
+  <div class="header-content clearfix">
+    <div class="header-text">
+      <span>Bookers</span>
+    </div>
+    <% if user_signed_in? %>
+      <div class="header-icon">
+        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        <%= link_to 'Home', user_path(@book.id) %>
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        <%= link_to 'Users', users_path %>
+        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+        <%= link_to 'Books', books_path %>
+        <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+        <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+      </div>
+    <% else %>
+      <div class="header-icon">
+        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        <%= link_to 'Home', root_path %>
+        <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+        <%= link_to 'About', '/home/about' %>
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+        <%= link_to 'Sign Up', new_user_registration_path %>
+        <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+        <%= link_to 'Login', new_user_session_path %>
+      </div>
+    <% end %>
+</header>
+
+<h2>Editing Book</h2>
+<%= form_for (@book) do |f| %>
+<% if @book.errors.any? %>
+  <h2><%= @book.errors.count %>件のエラーが発生しました。</h2>
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+<div class = "edit-book-title">
+  <label>Title</label>
+</div>
+<div class = "edit-book-title-form">
+  <label><%= f.text_field :title %></label>
+</div>
+<div class = "edit-book-opinion">
+  <label>Opnion</label>
+</div>
+<div class = "edit-book-opinion-form">
+  <label><%= f.text_area :body %></label>
+</div>
+<%= f.submit "Update Book", class:"btn btn-primary w-178px" %>
+<% end %>
