@@ -2,7 +2,7 @@
 
 ## Overview
 This is my first application by Ruby on Rails.
-This applicationis Bookers!!
+This application is Bookers!!
 You can share the book impression.
 
 ## Description
