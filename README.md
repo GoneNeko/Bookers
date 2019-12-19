@@ -12,3 +12,9 @@ This prove I have fundamental skills about Rails.
 ## Demo
 ![image1](sample_images/image2.png)
 ![image2](sample_images/image1.png)
+
+## Author
+GitHub account  
+[GoneNeko](https://github.com/GoneNeko)
+
+Follow me !!
