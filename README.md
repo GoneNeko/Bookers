@@ -1,4 +1,4 @@
-# Bookers2
+# Bookers
 
 ## Overview
 This is my first application by Ruby on Rails.
